@@ -12,6 +12,9 @@ venv/
 env/
 .venv/
 
+# Config with secrets
+backend/config.py
+
 # Flask
 instance/
 .webassets-cache
