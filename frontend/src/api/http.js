@@ -13,8 +13,10 @@ http.interceptors.request.use(config => {
 http.interceptors.response.use(
   res => res.data,
   err => {
-    if (err.response?.status === 401) {
+    const status = err.response?.status
+    if (status === 401 || status === 422) {
       localStorage.removeItem('token')
+      localStorage.removeItem('user')
       router.push('/login')
     }
     return Promise.reject(err)
