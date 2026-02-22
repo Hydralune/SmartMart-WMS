@@ -22,7 +22,7 @@
     </div>
 
     <!-- Dialog -->
-    <el-dialog v-model="dialogVisible" title="新增入库单" width="500px" destroy-on-close>
+    <el-dialog v-model="dialogVisible" title="新增入库单" width="500px" destroy-on-close append-to-body>
       <el-form :model="form" :rules="rules" ref="formRef" label-width="90px">
         <el-form-item label="供应商" prop="supplier_id">
           <el-select v-model="form.supplier_id" placeholder="选择供应商" style="width:100%">

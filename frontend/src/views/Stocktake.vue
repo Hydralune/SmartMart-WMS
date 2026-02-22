@@ -39,7 +39,7 @@
       </el-table>
     </div>
 
-    <el-dialog v-model="dialogVisible" title="新增盘点单" width="420px" destroy-on-close>
+    <el-dialog v-model="dialogVisible" title="新增盘点单" width="420px" destroy-on-close append-to-body>
       <el-form :model="form" :rules="rules" ref="formRef" label-width="90px">
         <el-form-item label="商品" prop="product_id">
           <el-select v-model="form.product_id" placeholder="选择商品" style="width:100%">

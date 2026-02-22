@@ -35,7 +35,7 @@
       </el-table>
     </div>
 
-    <el-dialog v-model="dialogVisible" :title="form.id ? '编辑商品' : '新增商品'" width="480px" destroy-on-close>
+    <el-dialog v-model="dialogVisible" :title="form.id ? '编辑商品' : '新增商品'" width="480px" destroy-on-close append-to-body>
       <el-form :model="form" :rules="rules" ref="formRef" label-width="90px">
         <el-form-item label="商品名称" prop="name">
           <el-input v-model="form.name" />

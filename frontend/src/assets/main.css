@@ -90,9 +90,22 @@ html, body, #app {
   border-radius: 16px !important;
   box-shadow: var(--shadow-lg) !important;
 }
-.el-dialog__header { border-bottom: 1px solid var(--border-light); padding-bottom: 16px; }
+.el-dialog__header {
+  background: var(--bg-card) !important;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 16px;
+  border-radius: 16px 16px 0 0;
+}
 .el-dialog__title { color: var(--text) !important; font-weight: 700; font-size: 16px; }
-.el-dialog__body { color: var(--text) !important; }
+.el-dialog__body {
+  background: var(--bg-card) !important;
+  color: var(--text) !important;
+}
+.el-dialog__footer {
+  background: var(--bg-card) !important;
+  border-top: 1px solid var(--border-light);
+  border-radius: 0 0 16px 16px;
+}
 
 .el-form-item__label { color: var(--text-muted) !important; font-weight: 500; }
 
