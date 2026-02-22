@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import jwt_required
 from models import db
 from models.product import Product
@@ -31,7 +31,7 @@ def create_product():
 @products_bp.route('/<int:pid>', methods=['PUT'])
 @role_required('admin')
 def update_product(pid):
-    p = Product.query.get_or_404(pid)
+    p = db.session.get(Product, pid) or abort(404)
     data = request.get_json()
     for field in ['name', 'category', 'spec', 'unit', 'stock_min', 'stock_max']:
         if field in data:
@@ -42,7 +42,7 @@ def update_product(pid):
 @products_bp.route('/<int:pid>', methods=['DELETE'])
 @role_required('admin')
 def delete_product(pid):
-    p = Product.query.get_or_404(pid)
+    p = db.session.get(Product, pid) or abort(404)
     db.session.delete(p)
     db.session.commit()
     return jsonify({'msg': '删除成功'})

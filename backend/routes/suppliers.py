@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import jwt_required
 from models import db
 from models.supplier import Supplier
@@ -27,7 +27,7 @@ def create_supplier():
 @suppliers_bp.route('/<int:sid>', methods=['PUT'])
 @role_required('admin', 'purchaser')
 def update_supplier(sid):
-    s = Supplier.query.get_or_404(sid)
+    s = db.session.get(Supplier, sid) or abort(404)
     data = request.get_json()
     for field in ['name', 'contact', 'phone', 'category', 'status']:
         if field in data:
@@ -38,7 +38,7 @@ def update_supplier(sid):
 @suppliers_bp.route('/<int:sid>', methods=['DELETE'])
 @role_required('admin')
 def delete_supplier(sid):
-    s = Supplier.query.get_or_404(sid)
+    s = db.session.get(Supplier, sid) or abort(404)
     db.session.delete(s)
     db.session.commit()
     return jsonify({'msg': '删除成功'})

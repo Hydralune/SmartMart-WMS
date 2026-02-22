@@ -1,5 +1,5 @@
 from models import db
-from datetime import datetime
+from datetime import datetime, timezone
 
 class InboundOrder(db.Model):
     __tablename__ = 'inbound_orders'
@@ -10,7 +10,7 @@ class InboundOrder(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     expire_date = db.Column(db.Date)
     operator_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     supplier = db.relationship('Supplier', backref='inbound_orders')
     product = db.relationship('Product', backref='inbound_orders')

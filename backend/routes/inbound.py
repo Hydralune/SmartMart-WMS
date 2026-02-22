@@ -5,7 +5,7 @@ from models.inbound import InboundOrder
 from models.inventory import Inventory
 from models.log import OperationLog
 from utils.auth_decorator import role_required
-from datetime import datetime
+from datetime import datetime, date
 
 inbound_bp = Blueprint('inbound', __name__)
 
@@ -22,12 +22,21 @@ def create_inbound():
     claims = get_jwt()
     operator_id = int(claims.get('sub') or 0)
 
+    def parse_date(val):
+        if not val:
+            return None
+        if isinstance(val, date):
+            return val
+        return datetime.strptime(val, '%Y-%m-%d').date()
+
+    expire = parse_date(data.get('expire_date'))
+
     order = InboundOrder(
         supplier_id=data['supplier_id'],
         product_id=data['product_id'],
         batch_no=data.get('batch_no'),
         quantity=data['quantity'],
-        expire_date=data.get('expire_date'),
+        expire_date=expire,
         operator_id=operator_id,
     )
     db.session.add(order)
@@ -43,7 +52,7 @@ def create_inbound():
             product_id=data['product_id'],
             batch_no=data.get('batch_no'),
             quantity=data['quantity'],
-            expire_date=data.get('expire_date'),
+            expire_date=expire,
             location=data.get('location'),
         )
         db.session.add(inv)

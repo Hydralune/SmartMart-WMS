@@ -5,7 +5,7 @@ from models.inventory import Inventory
 from models.product import Product
 from models.inbound import InboundOrder
 from models.outbound import OutboundOrder
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from sqlalchemy import func
 
 stats_bp = Blueprint('stats', __name__)
@@ -23,7 +23,7 @@ def inventory_stats():
 @stats_bp.route('/trend', methods=['GET'])
 @jwt_required()
 def trend_stats():
-    since = datetime.utcnow() - timedelta(days=30)
+    since = datetime.now(timezone.utc) - timedelta(days=30)
     inbound = db.session.query(
         func.date(InboundOrder.created_at).label('date'),
         func.sum(InboundOrder.quantity).label('qty')

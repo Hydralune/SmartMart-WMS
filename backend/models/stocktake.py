@@ -1,5 +1,5 @@
 from models import db
-from datetime import datetime
+from datetime import datetime, timezone
 
 class StocktakeOrder(db.Model):
     __tablename__ = 'stocktake_orders'
@@ -10,7 +10,7 @@ class StocktakeOrder(db.Model):
     diff = db.Column(db.Integer)
     status = db.Column(db.Enum('pending', 'approved'), default='pending')
     operator_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     product = db.relationship('Product', backref='stocktake_orders')
     operator = db.relationship('User', backref='stocktake_orders')

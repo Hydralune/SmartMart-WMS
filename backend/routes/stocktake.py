@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import get_jwt
 from models import db
 from models.stocktake import StocktakeOrder
@@ -42,7 +42,7 @@ def create_stocktake():
 def approve_stocktake(oid):
     claims = get_jwt()
     operator_id = int(claims.get('sub') or 0)
-    order = StocktakeOrder.query.get_or_404(oid)
+    order = db.session.get(StocktakeOrder, oid) or abort(404)
     if order.status == 'approved':
         return jsonify({'msg': '已审核'}), 400
 

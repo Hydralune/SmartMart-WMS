@@ -1,5 +1,5 @@
 from models import db
-from datetime import datetime
+from datetime import datetime, timezone
 
 class OperationLog(db.Model):
     __tablename__ = 'operation_logs'
@@ -7,7 +7,7 @@ class OperationLog(db.Model):
     operator_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     action_type = db.Column(db.String(50))
     detail = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     operator = db.relationship('User', backref='logs')
 
