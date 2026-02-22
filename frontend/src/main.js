@@ -9,12 +9,14 @@ import router from './router'
 import './assets/main.css'
 
 const app = createApp(App)
+const pinia = createPinia()
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
-app.use(createPinia())
+// Pinia 必须在 router 之前 use，守卫里的 useAuthStore 才能正常读取
+app.use(pinia)
 app.use(router)
 app.use(ElementPlus, { locale: zhCn })
 app.mount('#app')

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { getActivePinia } from 'pinia'
 import { useAuthStore } from '@/store/auth'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
@@ -29,6 +30,7 @@ NProgress.configure({ showSpinner: false })
 
 router.beforeEach((to) => {
   NProgress.start()
+  if (!getActivePinia()) return to.meta.public ? true : '/login'
   const auth = useAuthStore()
   if (!to.meta.public && !auth.isLoggedIn) return '/login'
   if (to.path === '/login' && auth.isLoggedIn) return '/'
