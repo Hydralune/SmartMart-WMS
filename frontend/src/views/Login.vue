@@ -89,52 +89,62 @@ async function submit() {
 <style scoped>
 .login-wrap {
   min-height: 100vh; display: flex; align-items: center; justify-content: center;
-  background: var(--bg); position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 50%, #eff6ff 100%);
+  position: relative; overflow: hidden;
 }
 
 /* Orbs */
 .bg-orbs { position: absolute; inset: 0; pointer-events: none; }
 .orb {
   position: absolute; border-radius: 50%;
-  filter: blur(80px); opacity: 0.15;
+  filter: blur(60px); opacity: 0.25;
   animation: float 8s ease-in-out infinite;
 }
 .orb-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; left: -150px; animation-delay: 0s; }
-.orb-2 { width: 400px; height: 400px; background: #06b6d4; bottom: -100px; right: -100px; animation-delay: 3s; }
-.orb-3 { width: 300px; height: 300px; background: var(--success); top: 50%; left: 50%; animation-delay: 6s; }
-
-@keyframes float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%       { transform: translate(30px, -30px) scale(1.05); }
-  66%       { transform: translate(-20px, 20px) scale(0.95); }
-}
+.orb-2 { width: 400px; height: 400px; background: var(--purple); bottom: -100px; right: -100px; animation-delay: 3s; }
+.orb-3 { width: 300px; height: 300px; background: #06b6d4; top: 50%; left: 50%; animation-delay: 6s; }
 
 .login-card {
   width: 420px; padding: 40px;
-  background: rgba(30,41,59,0.8);
+  background: rgba(255,255,255,0.9);
   backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255,255,255,0.8);
   border-radius: 20px;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+  box-shadow: 0 24px 64px rgba(37,99,235,0.12), 0 8px 24px rgba(0,0,0,0.06);
   position: relative; z-index: 1;
 }
 
 .login-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
 .logo-icon {
   width: 48px; height: 48px; border-radius: 14px;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  background: linear-gradient(135deg, var(--primary), var(--purple));
   display: flex; align-items: center; justify-content: center;
-  font-size: 24px;
-  box-shadow: 0 8px 24px rgba(99,102,241,0.4);
+  font-size: 24px; color: #fff;
+  box-shadow: 0 8px 24px rgba(37,99,235,0.3);
 }
 .logo-name { font-size: 20px; font-weight: 700; color: var(--text); }
 .logo-sub  { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
 .login-form { display: flex; flex-direction: column; gap: 4px; }
-.login-btn { width: 100%; margin-top: 8px; height: 44px; font-size: 15px; font-weight: 600; border-radius: 10px !important; }
+.login-btn {
+  width: 100%; margin-top: 8px; height: 44px;
+  font-size: 15px; font-weight: 600;
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, var(--primary), var(--purple)) !important;
+  border: none !important;
+  box-shadow: 0 4px 16px rgba(37,99,235,0.3) !important;
+  transition: all var(--transition) !important;
+}
+.login-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(37,99,235,0.4) !important;
+}
 
 .login-hints { margin-top: 28px; }
-.hint-title { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+.hint-title {
+  font-size: 11px; color: var(--text-muted); margin-bottom: 10px;
+  text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;
+}
 .hints { display: flex; gap: 8px; }
 .hint-item {
   flex: 1; padding: 10px 12px; border-radius: 10px;
@@ -142,7 +152,12 @@ async function submit() {
   cursor: pointer; transition: all var(--transition);
   display: flex; flex-direction: column; gap: 3px;
 }
-.hint-item:hover { border-color: var(--primary); background: rgba(99,102,241,0.08); }
+.hint-item:hover {
+  border-color: var(--primary);
+  background: var(--primary-lighter);
+  box-shadow: 0 2px 8px rgba(37,99,235,0.1);
+  transform: translateY(-1px);
+}
 .hint-role { font-size: 11px; color: var(--text-muted); }
 .hint-user { font-size: 13px; font-weight: 600; color: var(--text); }
 </style>
