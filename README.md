@@ -58,8 +58,21 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://用户名:密码@localhost:3306/smart
 ```bash
 flask db init && flask db migrate && flask db upgrade
 python scripts/init_db.py   # 创建表 + 初始账号/商品/供应商
+python scripts/seed_demo.py # （可选）填充完整示例数据，方便演示
 python app.py               # 启动后端，默认 http://localhost:5000
 ```
+
+> `seed_demo.py` 会填充以下示例数据（已存在则跳过，可安全重复执行）：
+>
+> | 类型 | 数量 | 说明 |
+> |------|------|------|
+> | 供应商 | 10 家 | 含 1 家已停止合作 |
+> | 商品 | 20 种 | 覆盖饮料、乳制品、零食、方便食品、调味品、粮油 |
+> | 库存 | 20 条 | 含 5 条低于下限预警、2 条即将过期 |
+> | 入库记录 | 15 条 | 分布在近 30 天 |
+> | 出库记录 | 24 条 | 覆盖收银台、配送中心等多个部门 |
+> | 盘点记录 | 8 条 | 含已审核与待审核 |
+> | 操作日志 | 18 条 | 覆盖入库、出库、盘点、商品、供应商操作 |
 
 ### 3. 前端
 
@@ -98,7 +111,8 @@ SmartMart-WMS/
 │   ├── routes/               # API 蓝图（9 个模块）
 │   ├── utils/                # 角色权限装饰器
 │   ├── scripts/
-│   │   └── init_db.py        # 数据库初始化脚本
+│   │   ├── init_db.py        # 数据库初始化脚本
+│   │   └── seed_demo.py      # 示例数据填充脚本
 │   ├── tests/                # pytest 测试套件
 │   └── requirements.txt
 ├── frontend/
